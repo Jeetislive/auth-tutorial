@@ -1,14 +1,15 @@
-Authentication System using MERN Stack
-This project is a comprehensive authentication system built using the MERN stack. It features user registration, login, email verification, and password recovery with secure token-based authentication.
+# MERN Stack Authentication System
 
-Features
-User Registration: New users can register and receive a verification code via email.
-Email Verification: Users must verify their email before accessing the application.
-Login & JWT Authentication: Users can log in, and a JWT token is issued for secure session management.
-Session Management: Sessions are managed using JWT tokens and are invalidated upon logout.
-Password Recovery: Forgot password functionality with an email-based password reset process.
-Secure Passwords: Passwords are hashed using bcrypt.js for added security.
-Tech Stack
-Frontend: React (based on a YouTube tutorial)
-Backend: Node.js, Express.js, MongoDB
-Libraries: JSON Web Tokens (JWT), bcrypt.js, nodemailer
+A robust authentication system built using the MERN stack, providing seamless and secure user registration, login, and password management features. The backend is built with Node.js, Express, and MongoDB, while the frontend is developed in React.
+
+## 🔑 Key Features
+- **User Registration with Email Verification**: Users register and receive a verification code via email to activate their accounts.
+- **JWT-Based Login**: Secure login system with JSON Web Tokens (JWT) for authentication and session management.
+- **Password Recovery & Reset**: Email support for users to recover their accounts and reset forgotten passwords.
+- **Secure Password Storage**: Passwords are encrypted with bcrypt.js to ensure security.
+- **Session Management**: Tokens are invalidated upon logout, ensuring a secure user experience.
+
+## 🛠️ Tech Stack
+- **Frontend**: React (UI built with tutorial guidance)
+- **Backend**: Node.js, Express.js, MongoDB
+- **Libraries**: JSON Web Tokens (JWT), bcrypt.js, nodemailer
