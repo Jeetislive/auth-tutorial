@@ -79,6 +79,44 @@ export const verifyEmail = async (req, res) => {
     }
 
 }
+
+// login
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await User.findOne({email});
+        if (!user) {
+            return res.status(400).json({ message: "User not found" });
+        }
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if (!isValidPassword) {
+            return res.status(400).json({ message: "Invalid password" });
+        }
+        generateTokenAndSetCookie(res, user._id);
+        user.lastLogin = new Date();
+
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Logged in successfully",
+            user: {
+                ...user._doc,
+                password: undefined,
+            },
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+        
+    }
+}
+ // logout
+export const logout = async (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({success: true, msg: "Logged Out Successfully!"})
+}
+
+
 // forgot password
 export const forgotPassword = async (req, res) => {
     const { email } = req.body;
@@ -122,41 +160,7 @@ export const resetPassword = async (req, res) => {
     }
 
 }
-// login
-export const login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-        const user = await User.findOne({email});
-        if (!user) {
-            return res.status(400).json({ message: "User not found" });
-        }
-        const isValidPassword = await bcrypt.compare(password, user.password);
-        if (!isValidPassword) {
-            return res.status(400).json({ message: "Invalid password" });
-        }
-        generateTokenAndSetCookie(res, user._id);
-        user.lastLogin = new Date();
 
-        await user.save();
-
-        res.status(200).json({
-            success: true,
-            message: "Logged in successfully",
-            user: {
-                ...user._doc,
-                password: undefined,
-            },
-        })
-    } catch (error) {
-        res.status(500).json({ message: error.message })
-        
-    }
-}
- // logout
-export const logout = async (req, res) => {
-    res.clearCookie("token");
-    res.status(200).json({success: true, msg: "Logged Out Successfully!"})
-}
 
 
 // check Auth
